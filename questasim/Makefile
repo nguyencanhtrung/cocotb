@@ -1,7 +1,10 @@
 # Makefile
 
 # defaults
-SIM ?= icarus
+SIM ?= questa
+
+GUI ?= 0
+
 TOPLEVEL_LANG ?= verilog
 
 VERILOG_SOURCES = counter.v

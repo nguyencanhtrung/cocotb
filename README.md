@@ -43,7 +43,7 @@ sudo make install
 #### b. Questasim
 If using Questasim, just need to add the Questasim installation path
 
-`export MODELSIM_BIN_DIR="/opt/Intel/questa_fe/bin"`
+`export MODELSIM_BIN_DIR=/opt/Siemens/Questa/20.4/questasim/bin`
 
 Need to export the `LM_LICENSE_FILE` of Quartus package before running cocotb
 
@@ -97,7 +97,7 @@ You may need to add to PATH and add this line into your .bashrc file
 
 `export PATH=/home/tesla/.local/bin:$PATH`
 
-Checking whether it is successfull or not by typing `cocotb-config`
+Checking whether it is successfull or not by typing `cocotb-config --version`
 
 You can run the cocotb installation process by
 

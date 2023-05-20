@@ -3,6 +3,7 @@
 * Python 3.x
 * Cocotb package
 * Iverilator
+* GTKwave
 
 
 ## 1. Traditional simulation with iverilog and gtkwave
