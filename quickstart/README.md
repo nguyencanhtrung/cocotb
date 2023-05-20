@@ -159,4 +159,8 @@ MODULE = testbench2
 
 ```
 
+or just simply run
+
+`make MODULE = testbench2`
+
 If we view the output waveform in gtkwave, the entire test now only runs 50 ns! The `run_reset_routine` does, in fact, run concurrently with the `basic_test` function.
