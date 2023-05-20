@@ -13,21 +13,48 @@ The current stable version of cocotb requires:
 * GNU Make 3+
 * An HDL simulator (such as Icarus Verilog, Verilator, GHDL or other simulator)
 
-### Install icarus verilog simulator for simulating verilog
-
-`sudo apt install iverilog`
-
-### Install gtkwave
-
-`sudo apt install gtkwave`
-
-### Install Python 3.6+
+### 1. Install Python 3.6+
 
 Make sure you have python 3.6+ installed python --version or python3 --version
 
 `sudo apt-get install make python3 python3-pip`
 
-### Install cocotb
+### 2. RTL simulator
+
+Choose one of the following simulators.
+
+#### a. Icarus verilog
+
+Cocotb supports the following RTL simulators: Synopsys VCS, Intel Questa and Icarus Verilog. Icarus Verilog is free and can be obtained from [github](https://github.com/steveicarus/iverilog). To install Icarus Verilog, follow the instructions from the git repository, or simply:
+
+`sudo apt install iverilog`
+
+Another way to install iverilog is to recompile and install from source code by following steps. I recommend this way to get the lastest version.
+
+```
+git clone https://github.com/steveicarus/iverilog
+cd iverilog
+sh ./autoconf.sh
+./configure
+make
+sudo make install
+```
+
+#### b. Questasim
+If using Questasim, just need to add the Questasim installation path
+
+`export MODELSIM_BIN_DIR="/opt/Intel/questa_fe/bin"`
+
+Need to export the `LM_LICENSE_FILE` of Quartus package before running cocotb
+
+Note that: You can use Intel Questasim or Mentor Questasim
+
+### 3. Install gtkwave
+
+`sudo apt install gtkwave`
+
+
+### 4. Install cocotb
 
 We can use the global python installation for cocotb. However, the better way is to create a separated environment for cocotb to prevent any corruption on main python installation.
 
@@ -76,7 +103,3 @@ You can run the cocotb installation process by
 
 `source install_cocotb.sh`
 
-
-Starting from
-
-Quickstart > Hello World 
