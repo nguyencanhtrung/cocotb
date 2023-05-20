@@ -110,3 +110,7 @@ examples/*/tests/verilog.log
 
 # Build artifacts
 /dist/
+
+# venv
+venv/
+```
