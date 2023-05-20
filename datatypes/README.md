@@ -1,5 +1,13 @@
 # Instruction
 
+## Getting start
+
+### Requirements
+
+* Installed python 3.x
+* Installed cocotb package
+
+
 ## Handles
 
 In short, handles are objects to allow for access to any signal name in your HDL design.
@@ -158,4 +166,11 @@ bool(Logic(0))
 int(Logic(1))
 Bit(Logic("1"))
 Bit('1')
+```
+
+### How to run
+
+```
+$ python binary_values.py
+$ python hdl_datatypes.py
 ```
