@@ -1,24 +1,13 @@
+## Requirements
+
+* Python 3.x
+* Cocotb package
+* Iverilator
+
+
 ## 1. Traditional simulation with iverilog and gtkwave
 
-### a. Things to install to run the example
-
-#### Install icarus verilog simulator for simulating verilog
-
-`sudo apt install iverilog`
-
-#### Install gtkwave
-
-`sudo apt install gtkwave`
-
-#### Install Python 3.6+
-
-Make sure you have python 3.6+ installed python --version or python3 --version
-
-#### Install cocotb
-
-`pip install cocotb`
-
-### b. Some notes
+### a. Notes
 
 The following section in the implementation and testbench file
 
@@ -31,7 +20,7 @@ end
 to make it compatible with gtkwave
 
 
-### c. Running testbench with iverilog 
+### b. Running testbench with iverilog 
 
 `iverilog -o count_up_output count_up.v count_up_tb.v`
 
@@ -40,7 +29,7 @@ to make it compatible with gtkwave
 The first command calls `iverilog`, which is a compiler that translates Verilog source code into executable programs for simulation. We then run `vvp` for simulation.
 
 
-### d. Viewing results in gtkwave
+### c. Viewing results in gtkwave
 
 Remember what we put in the implementation and testbench file
 
