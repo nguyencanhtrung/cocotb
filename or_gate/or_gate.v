@@ -7,7 +7,7 @@ module or_gate(
     assign y = a | b;
 
     initial begin
-        $dumpfile("or_gate.vcd");
+        $dumpfile("waves.vcd");
         $dumpvars(0, or_gate);
     end
 endmodule
