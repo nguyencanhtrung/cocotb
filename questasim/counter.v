@@ -1,11 +1,3 @@
-/* -------------------------------------------
-* Author:   Nguyen Canh Trung
-* Email:    trungnc@soc.one
-* Date:     2023-05-16 16:48:36
-* Filename: counter
-* Last Modified by:     Nguyen Canh Trung
-* Last Modified time:   2023-05-16 16:48:36
-* --------------------------------------------*/
 module count_up(
     clk, 
     reset, 

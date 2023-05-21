@@ -2,4 +2,4 @@
 CWD=$(pwd)
 source $CWD/venv/bin/activate
 
-export PATH=~/.local/bin:$PATH
+# export PATH=~/.local/bin:$PATH
