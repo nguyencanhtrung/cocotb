@@ -19,3 +19,6 @@ MODULE = tb
 
 # include cocotb's make rules to take care of the simulator setup
 include $(shell cocotb-config --makefiles)/Makefile.sim
+
+clean::
+	@rm -rf __pycache__ vsim.wlf modelsim.ini results.xml transcript sim_build

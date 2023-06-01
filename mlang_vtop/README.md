@@ -14,8 +14,8 @@ In this case, we are going to explore the first case having a verilog toplevel w
 
 ### Simulation
 
-* Toplevel: counter_wrapper
-* Internal module: counter
+* Toplevel: `counter_wrapper.v`
+* Internal module: `counter.vhd`
 
 Simply just need to adjust the `Makefile` to include all sources with `VHDL_SOURCES` for VHDL implementation and `VERILOG_SOURCES` for verilog implementation as the following
 
