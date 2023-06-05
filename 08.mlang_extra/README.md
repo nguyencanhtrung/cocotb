@@ -1,4 +1,4 @@
-## Mixed language simulation (from official cocotb repo)
+## 1. Mixed language simulation (from official cocotb repo)
 
 The directory `cocotb/08.mlang_extra/` contains two toplevel HDL files, one in VHDL, one in SystemVerilog, that each instantiate an `endian_swapper` entity in SystemVerilog and VHDL in parallel and chains them together so that the endianness is swapped twice.
 
@@ -6,7 +6,7 @@ Thus, we end up with SystemVerilog+VHDL instantiated in VHDL and SystemVerilog+V
 
 The cocotb testbench pulls the reset on both instances and checks that they behave the same.
 
-## Hierarchy
+## 2. Hierarchy
 
 ```
 .
@@ -21,7 +21,7 @@ The cocotb testbench pulls the reset on both instances and checks that they beha
 └── README.md
 ```
 
-## Prerequisite
+## 3. Prerequisite
 
 * Questasim or Modelsim 
 * Icarus verilog does not support mixed language simulation
@@ -36,20 +36,15 @@ ifneq ($(filter $(SIM),questa modelsim),)
 endif
 ```
 
-## How to run simulation
+## 4. Endian swapper implementation
 
-```
-> cd ./tests
-> make SIM=questa
-```
-
-## Endian swapper implementation
+The vhdl implementation is exactly the same as system verilog implementation. The following section describes the VHDL implementation.
 
 ### Interfaces
 
-* stream_in : Avalon Stream (readyLatency = 0)
-* stream_out : Avalon Stream (readyLatency = 0)
-* csr : Avalon MM (fixed readLatency = 1)
+* `stream_in` : Avalon Stream (readyLatency = 0)
+* `stream_out` : Avalon Stream (readyLatency = 0)
+* `csr` : Avalon MM (fixed readLatency = 1)
 
 Avalon Stream signals
 
@@ -81,10 +76,7 @@ csr_writedata
 --    Adress  1:  bits 31-0: [RO]  packet count
 ```
 
-### Memory mapped implementation
-
-
-### Datapath implementation
+### a. Avalon stream
 
 `flush_pipe` : flushing data in pipe is enable when reaching the end of packet. Normally flushing is enable for one extra cycle compared stream_in.
 
@@ -142,9 +134,12 @@ stream_in_ready         <= stream_out_ready;
 stream_out_endofpacket  <= stream_out_endofpacket_int;
 ```
 
-`in_packet` flag: packet flow is occuring 
+`in_packet` flag
 
-### Avalon-MM (csr_* interface)
+* 1 = packet flow is occuring 
+* 0 = no flow occurs
+
+### b. Avalon-MM (csr_* interface)
 
 ```
 -- Hold off CSR accesses during packet transfers to prevent changing of endian configuration mid-packet
@@ -176,9 +171,88 @@ process (clk, reset_n) begin
 end process;
 ```
 
+## 5. Top level
+
+The top level implementation includes 2 modules
+
+* VHDL implementation of endian swapper
+* System verilog implementation of endian swapper
+
+Two modules are connected in chain and are fed same configuration via `csr_*` interface. Reading via `csr` will get the information from SystemVerilog module (just make the implementation simple).
+
+There are 2 toplevel which are examined. One is in VHDL and the other is in SystemVerilog. To examine VHDL toplevel just need to change the Makefile
+
+```
+# Override this variable to use a VHDL toplevel instead of SystemVerilog
+TOPLEVEL_LANG ?= vhdl
+```
+
+or SystemVerilog toplevel
+
+```
+# Override this variable to use a VHDL toplevel instead of SystemVerilog
+TOPLEVEL_LANG ?= verilog
+```
+
+## 6. Testbench `test_mixed_language.py`
+
+### a. Accessing component in mixed language simulation
+
+We are going to check the ability of accessing sub-module signals.
+
+```
+verilog = dut.i_swapper_sv
+verilog.reset_n.value = 1
+```
+
+`dut` is considered as toplevel module. `dut.i_swapper_sv` is accessing the SystemVerilog module `i_swapper_sv`. 
+
+Now, we want to drive a signal of this module, in this example `reset_n`.
+
+Or even, we can accessing an object of a module other than a port as the following example:
+
+```
+verilog.flush_pipe.value
+```
+
+It accesses the flag `flush_pipe` of the design.
 
 
-## mixed language accessing test
+<strong>One important note</strong>
+
+When using Modelsim/Questasim and a VHDL toplevel file, it is failed to access signal. For example,
+
+```
+#    100.00ns INFO     cocotb.regression                  mixed_language_accessing_test failed
+#                                                         Traceback (most recent call last):
+#                                                           File "/home/tesla/workspace/05.Soc/02.cocotb/08.mlang_extra/tests/test_mixed_language.py", line 31, in mixed_language_accessing_test
+#                                                             verilog.reset_n.value = 1
+#                                                           File "/home/tesla/.local/lib/python3.8/site-packages/cocotb/handle.py", line 370, in __getattr__
+#                                                             raise AttributeError(f"{self._name} contains no object named {name}")
+#                                                         AttributeError: i_swapper_sv contains no object named reset_n
+```
+
+It signals line `verilog.reset_n.value = 1` causing failure. The reason is SV modules are not discovered automatically in this case. A workaround is insearting this line of code before accessing SV modules.
+
+```
+verilog._discover_all()
+```
+
+while `verilog = dut.i_swapper_sv`
+
+### b. Functional testing
+
+
+
+## 7. Makefile
+
+
+## 8. How to run simulation
+
+```
+> cd ./tests
+> make SIM=questa
+```
 
 
 

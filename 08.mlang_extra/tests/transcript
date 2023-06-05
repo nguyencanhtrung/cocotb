@@ -1,0 +1,88 @@
+# Reading pref.tcl
+# //  Questa Sim-64
+# //  Version 2020.4 linux_x86_64 Oct 13 2020
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# do sim_build/runsim.do
+# QuestaSim-64 vmap 2020.4 Lib Mapping Utility 2020.10 Oct 13 2020
+# vmap -c 
+# ** Warning: vmap will not overwrite local modelsim.ini.
+# QuestaSim-64 vmap 2020.4 Lib Mapping Utility 2020.10 Oct 13 2020
+# vmap work sim_build/work 
+# Modifying modelsim.ini
+# QuestaSim-64 vcom 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 22:27:36 on Jun 05,2023
+# vcom -reportprogress 300 -work work "+acc" /home/tesla/workspace/05.Soc/02.cocotb/08.mlang_extra/tests/../hdl/endian_swapper.vhdl /home/tesla/workspace/05.Soc/02.cocotb/08.mlang_extra/tests/../hdl/toplevel.vhdl 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity endian_swapper_vhdl
+# -- Compiling architecture impl of endian_swapper_vhdl
+# -- Compiling entity endian_swapper_mixed
+# -- Compiling architecture impl of endian_swapper_mixed
+# -- Loading entity endian_swapper_vhdl
+# End time: 22:27:36 on Jun 05,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 22:27:36 on Jun 05,2023
+# vlog -reportprogress 300 -work work "+define+COCOTB_SIM" -sv -timescale 1ns/1ps -mfcu "+acc" /home/tesla/workspace/05.Soc/02.cocotb/08.mlang_extra/tests/../hdl/endian_swapper.sv 
+# -- Compiling module endian_swapper_sv
+# 
+# Top level modules:
+# 	endian_swapper_sv
+# End time: 22:27:36 on Jun 05,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -t 1ps -onfinish exit -foreign "cocotb_init /home/tesla/.local/lib/python3.8/site-packages/cocotb/libs/libcocotbfli_modelsim.so" sim_build/work.endian_swapper_mixed 
+# Start time: 22:27:36 on Jun 05,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.endian_swapper_mixed(impl)#1
+# Loading sv_std.std
+# Loading work.endian_swapper_sv(fast)
+# Loading work.endian_swapper_vhdl(impl)#1
+# Loading /home/tesla/.local/lib/python3.8/site-packages/cocotb/libs/libcocotbfli_modelsim.so
+#      -.--ns INFO     gpi                                ..ib/fli/FliImpl.cpp:1131 in cocotb_init                     cocotb_init called
+#      -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:109  in set_program_name_in_venv        Using Python virtual environment interpreter at /home/tesla/workspace/05.Soc/10.studies/02.cocotb/venv/bin/python
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:101  in gpi_print_registered_impl       FLI registered
+#      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:101  in gpi_print_registered_impl       VPI registered
+#      0.00ns INFO     cocotb                             Running on ModelSim for Questa-64 version 2020.4 2020.10
+#      0.00ns INFO     cocotb                             Running tests with cocotb v1.7.1 from /home/tesla/.local/lib/python3.8/site-packages/cocotb
+#      0.00ns INFO     cocotb                             Seeding Python random module with 1685978857
+#      0.00ns INFO     cocotb.regression                  Found test test_mixed_language.mixed_language_accessing_test
+#      0.00ns INFO     cocotb.regression                  Found test test_mixed_language.mixed_language_functional_test
+#      0.00ns INFO     cocotb.regression                  running mixed_language_accessing_test (1/2)
+#                                                           Try accessing handles and setting values in a mixed language environment.
+#    100.00ns INFO     cocotb.endian_swapper_mixed        Got: 'i_swapper_sv'
+#    100.00ns INFO     cocotb.endian_swapper_mixed        Got: 'i_swapper_vhdl'
+#    300.00ns INFO     cocotb.regression                  mixed_language_accessing_test passed
+#    300.00ns INFO     cocotb.regression                  running mixed_language_functional_test (2/2)
+#                                                           Try concurrent simulation of VHDL and Verilog and check the output.
+#    400.00ns INFO     cocotb.endian_swapper_mixed        Got: 'i_swapper_sv'
+#    400.00ns INFO     cocotb.endian_swapper_mixed        Got: 'i_swapper_vhdl'
+#   2690.00ns INFO     cocotb.regression                  mixed_language_functional_test passed
+#   2690.00ns INFO     cocotb.regression                  ************************************************************************************************************
+#                                                         ** TEST                                                STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+#                                                         ************************************************************************************************************
+#                                                         ** test_mixed_language.mixed_language_accessing_test    PASS         300.00           0.00      69839.34  **
+#                                                         ** test_mixed_language.mixed_language_functional_test   PASS        2390.00           0.02     104779.83  **
+#                                                         ************************************************************************************************************
+#                                                         ** TESTS=2 PASS=2 FAIL=0 SKIP=0                                     2690.00           0.15      18293.39  **
+#                                                         ************************************************************************************************************
+#                                                         
+# Simulation halt requested by foreign interface.
+# End time: 22:27:43 on Jun 05,2023, Elapsed time: 0:00:07
+# Errors: 0, Warnings: 0

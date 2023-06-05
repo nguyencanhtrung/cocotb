@@ -7,8 +7,8 @@ The repository includes introductory labs to help you get familiar to cocotb fra
 * Lab 5: vhdl - vhdl module testing with cocotb (questasim mentor)
 * Lab 6: mixed languages (mlang_vtop) - testing mixed language Verilog toplevel with cocotb (questasim mentor)
 * Lab 7: mixed languages (mlang_vhdtop) - testing mixed language VHDL toplevel with cocotb (questasim mentor)
-* Lab 8: Xilinx IP cores included - simulating system which includes Xilinx IP Cores
-* Lab 9: 
+* Lab 8: mixed languages (mlang_extra) - testing mixed language system verilog and vhdl ()
+* Lab 9: Xilinx IP cores included - simulating system which includes Xilinx IP Cores
 * Lab 10:
 * Lab 11:
 * Lab 12:
