@@ -15,7 +15,8 @@ The repository includes introductory labs to help you get familiar to cocotb fra
 * Lab 13:
 * Lab 14:
 
-## Installation
+---
+## A. Installation
 
 The current stable version of cocotb requires:
 
@@ -113,7 +114,8 @@ You can run the cocotb installation process by
 
 `source install_cocotb.sh`
 
-## Tips and tricks
+---
+## B. Tips and tricks
 
 ### 1. Mixed language simulation
 
