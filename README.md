@@ -113,3 +113,78 @@ You can run the cocotb installation process by
 
 `source install_cocotb.sh`
 
+## Tips and tricks
+
+### 1. Mixed language simulation
+
+#### a. Verilog or SV modules are not discovered automatically when toplevel is in VHDL and using Questasim or Modelsim
+
+The following message shows the error
+
+```
+#    100.00ns INFO     cocotb.regression                  mixed_language_accessing_test failed
+#                                                         Traceback (most recent call last):
+#                                                           File "/home/tesla/workspace/05.Soc/02.cocotb/08.mlang_extra/tests/test_mixed_language.py", line 31, in mixed_language_accessing_test
+#                                                             verilog.reset_n.value = 1
+#                                                           File "/home/tesla/.local/lib/python3.8/site-packages/cocotb/handle.py", line 370, in __getattr__
+#                                                             raise AttributeError(f"{self._name} contains no object named {name}")
+#                                                         AttributeError: i_swapper_sv contains no object named reset_n
+```
+
+<strong>Workaround solution</strong>
+
+In the python testbench, enabling `_discover_all()` for the Verilog or SV modules we want to access
+
+```
+verilog._discover_all()
+```
+
+where `verilog = dut.i_swapper_sv`
+
+For more detail, open `08.mlang_extra/tests/test_mixed_language.py`
+
+#### b. Fatal: (vsim-3693) The minimum time resolution limit (1ps) 
+
+```
+# ** Fatal: (vsim-3693) The minimum time resolution limit (1ps) in the Verilog source is smaller than the one chosen for SystemC or VHDL units in the design. Use the vsim -t option to specify the desired resolution.
+# FATAL ERROR while loading design
+# Error loading design
+```
+
+The issue is the default time resolution of the VHDL simulator is used as specified in the modelsim.ini
+
+```
+[vsim]
+; vopt flow
+; Set to turn on automatic optimization of a design.
+; Default is on
+VoptFlow = 1
+
+; Simulator resolution
+; Set to fs, ps, ns, us, ms, or sec with optional prefix of 1, 10, or 100.
+Resolution = ns
+```
+
+And it is `ns` which does not match with the default resolution of verilog module (normally `1ps`). 
+
+<strong>Solution </strong>
+
+Adding vsim arguments specified in the `Makefile` variable `VSIM_ARGS` or `SIM_ARGS` of the Cocotb build system.
+
+```
+VSIM_ARGS=-t 1ps
+```
+
+or 
+
+```
+ifneq ($(filter $(SIM),questa modelsim),)
+    SIM_ARGS += -t 1ps
+endif
+```
+
+This way, one gets a consistent time resolution across VHDL and Verilog. The parameter has to be set for every project accordingly.
+
+For more detail, open `07.mlang_vhdtop/Makefile`  or  `08.mlang_extra/tests/Makefile`
+
+### 2. 
